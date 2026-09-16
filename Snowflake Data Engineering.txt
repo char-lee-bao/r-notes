@@ -1,0 +1,160 @@
+# Part 1: Introducing data engineering with Snowflake
+- Covers fundamental Snowflake features needed to extract and transform data from a file into Snowflake
+- A foundation to data pipelines before enhancing additional functionality
+Chapter 1
+- Snowflake's functionality as a data cloud platform for data storage, processing, application development, and analytics
+- Usage of Snowflake for solutions to data warehousing, data lakes, data analytics, and data science
+Chapter 2
+- First data pipeline creation in Snowflake
+- Extracting data from a CSV file into Snowflake, raw data transformation into a specified data model, and automating the process
+
+## Chapter 1: Data engineering with Snowflake
+- Data collection is ubiquitous in every industry and organization
+- While data analysis use this data to gain decision-making insight, the raw data is rarely suitable for direct consumption
+- Transformed data accommodates for business rules and needs and is often enriched with external data
+- Data engineering: the process of building solutions that extract data from source systems, perform transformations into useful information, and present harmonized data to users for downstream consumption
+- Extract, transform, load (ETL) or extract, load, transform (ELT) are common abbreviations to denote the three phase data engineering process
+
+### 1.1 Snowflake for data engineering
+- Data engineering scenarios include extraction from source systems and storage into data warehouses, data lakes, data marts, or domain-oriented data products
+- Snowflake is a cloud data platform for data storage, processing, application development, and analytics with solutions for data warehousing, data lakes, data analytics, or data science
+
+#### 1.1.1 Snowflake architecture
+- Snowflake is a software as a service (SaaS) solution configured in the cloud
+- Supported cloud providers include Amazon Web Services, Microsoft Azure, and Google Cloud Platform
+- As a cloud data platform, Snowflake users do not have to buy, install, configure, manage, or maintain hardware or software
+- The storage and compute features of Snowflake are managed separately
+- Data is stored once and accessed by multiple workloads (e.g. data engineering pipelines, query engines, data science solutions, data sharing, or analytics)
+- Snowflake stores data in cloud storage in compressed columnar format
+- The cloud storage architecture manages the data storage organization, structure, compression, metadata, statistics, and security
+- The data objects are accessible through SQL queries, which are executed through virtual warehouses
+- Each virtual warehouse has its own compute resources that doesn't affect other warehouses, with the resources for each warehouse being configurable depending on the desired performance and workload
+- A cloud services layer handles authentication, access control, infrastructure management, query optimization, metadata management, and security
+- In essence, the Snowflake architecture can be divided into three layers: database storage, query processing, and cloud services
+- Snowflake features zero-copy cloning and time travel as storage features
+- Zero-copy cloning enables users to create copies of data without incurring additional storage expenses, allowing new environments to be replicated for testing and production development
+- Similarly, time travel protects data integrity by allowing users to access data from a point in time in the past - backups allow for protection against unintentional errors
+- Snowflake also supports replicating databases between accounts, regions, and cloud platforms, ensuring synchronization and reducing query latency
+
+#### 1.1.2 Snowflake features for data engineering
+- Snowflake has the following features for data ingestion and transformation
+##### Ingesting data from cloud storage providers
+- Data can be ingested from files stored in cloud storage providers such as AWS S3 buckets, Azure blob storage containers, and Google Cloud Platform (GCP) buckets
+- Files in structured and semistructured formats are supported, and even unstructured data files can stored and manipulated
+##### Snowpipe
+- Snowpipe ingests files from cloud storage in a continuous fashion - new files are ingested into Snowflake tables as soon as they are available in cloud storage
+- Snowpipe integrates with the cloud provider notification service which notifies when new files are available
+##### Snowflake tasks
+- A stored set of SQL statements, procedures or Snowflake scripting can be scheduled into a recurring task
+- Tasks can interact and depend on other tasks, enabling the automation of complex data processing pipelines
+##### Snowpark
+- Snowpark is a set of API libraries that support building data pipelines with programming languages such as Python, Scala, or Java
+- The code is executed natively in Snowflake, with access to open source libraries for additional functionality
+##### Data governance features
+- Account authorizations restrict specific users from accessing data
+- Masking policies and row-level access policies conceal confidential data
+##### Snowflake Marketplace
+- The Snowflake Marketplace is a public platform for users to access published data sets
+- Data sets can be shared publicly or privately to allow secure data sharing and collaboration
+##### Snowflake Partner Connect
+- Snowflake Partner Connect is an ecosystem of third-party tools and services - these tools span a variety of categories such as business intelligence, data integration, and data science
+
+### 1.2 Responsibilities of a Snowflake data engineer
+- Data engineers are responsible for designing, building, orchestrating, optimizing, monitoring, and maintaining pipelines that extract raw data from source systems and transform it into actionable information for downstream consumption
+- Data engineering skills include fall within software engineering and business intelligence backgrounds
+- In the context of Snowflake, knowledge and experience with Snowflake features and knowledge of cloud computing are helpful
+- Data processing, SQL skills, and a technical understanding of how data is stored within Snowflake are useful in retrieving and transforming data, as well as optimizing compute consumption costs and query performance
+- As stated previously, the main components of data engineering are (1) extracting data from source systems and ingesting it into Snowflake, (2) performing data transformations that are relevant to the solution, and (3) presenting data to downstream consumers for analytics, reporting, and data science
+- The underlying components of data engineering include security, data modeling, data governance, software engineering, orchestration, and DataOps
+- There are numerous additional components involved with data engineering pipelines, but not all components will be relevant or required in each case
+
+#### 1.2.1 Extracting data from source systems
+- Data engineers must familiarize themselves with the technology used in the source systems, and the best way to access such data to prepare it for ingestion
+- Data extracted from source systems may be tables in databases, files in storage, or output of API calls from an application
+- Developing an understanding of the business meaning of the data and how it is used in downstream solutions is helpful in deciding what is needed
+##### Incremental data ingestion
+- Data pipelines typically extract data incrementally by ingesting only new or changed data
+- What is determined to be different or new is dependent on the source system and downstream consumers
+- Snowflake streams are able to track data manipulation operations between two points in time for systems that do not identify changes easily
+##### Using tools vs. custom coding
+- Engineers must make decisions with other stakeholders on what tools and technologies are appropriate for data extraction and ingestion into Snowflake
+- A combination of open source software, commercial tools, or custom-written code can be used to implement a data extraction solution; the underlying commands ultimately ingest data into Snowflake, so an engineer should be able to troubleshoot within any selected tool or medium
+
+#### 1.2.2 Performing data transformations
+- Data analysts, system architects, and downstream users often specify data transformation rules
+##### Tool for data transformation
+- Tools performing transformations include SQL queries, stored procedures, or functions
+- Code written in Snowpark allows the engineer to code transformations in programming languages such as Python, Java, or Scala
+##### Data validation
+- Data validation steps can be included in the data pipeline to ensure the data is reliable and consistent
+- Data validation rules can be specific to technical or business rules as specified by other stakeholders
+
+#### 1.2.3 Presenting data to downstream consumers
+- Data engineers cater to the business needs of consumers by delivering data in line with expected form, timeliness, and performance
+- Implementing user interfaces, APIs, and data models suitable for analysis tools fall under the responsibility of the data engineer
+- Data engineers may need to improve query performance by applying knowledge of Snowflake features such as clustering, search optimization, materialized views, and dynamic tables
+
+#### 1.2.4 Applying underlying components
+- There are additional components that data engineers apply when building data pipelines
+##### Security
+- Snowflake has additional features to prevent cybersecurity threats or unauthorized access
+- Credentials used for connecting to Snowflake are stored securely, and users are granted minimum privileges necessary
+- Users are able to switch between administration and designated development roles depending on the specific task
+##### Data governance
+- Additionally, data architects and domain owners may have further data governance requirements that must be accommodated for when building data pipelines
+- Storage of more sensitive attributes may have consequences in the data model
+##### Data modeling
+- Data modeling concepts are required for correctly loading data into the target model
+- Some standard data models include relational, ensemble, and dimensional data models
+- The choice of a data model may lend to repeatable and automated data ingestion patterns
+- Understanding the data model and its impact is useful in building more standardized and efficient data pipelines
+##### Orchestration
+- Data pipelines are typically run on a routine schedule
+- For systems with multiple pipelines, data engineers can design dependencies between individual components using third-party orchestration tools, operating system commands, or Snowflake tasks to schedule pipelines
+- Designing logging mechanisms and processes that can be ran independently allow for efficient troubleshooting in case of errors
+##### Software engineering
+- Software engineering principles such as naming conventions, modularization, readability, versioning, and maintainability apply to the code used to build, test, and maintain data pipelines
+- Data engineers need to build performant, robust, and reliable systems by anticipating errors and ensuring expected behaviors
+- The software engineering lifecycle is an essential part of data engineering; pipelines require code written in a development environment, deployed to a test environment, and finally released to the production environment
+##### DataOps
+- DataOps: derived from agile software engineering to describe the data lifecycle in combination with continuous development and integrating data pipelines
+- DataOps practices can help organize and structure work better and ensure consistent and continuous deployment to production
+
+### 1.3 Building data pipelines
+- Data pipeline: a set of data-processing components that moves data from the source to the destination
+- In Snowflake, this process typically involves taking files from cloud storage, moving them to an external stage, ingesting said data into a staging table, and loading and performing any transformations into a transformed table for downstream consumers
+
+### 1.4 Data engineering with Snowflake applications
+- There are some common data engineering patterns with Snowflake
+##### Data lake
+- Data lake: a repository that stores large amounts of structured, semistructured, or unstructured data
+- Snowflake supports many table types and many concurrent workloads can access the data without competing compute resources
+##### Data warehouse
+- Data warehouse: enterprise repository of data collected from one or more source systems or external sources
+- A data warehouse provides harmonized historical data for creating reports, dashboards, and data analysis for business users
+##### Data mart
+- Data mart: data for a single business unit for quick and easy access
+- Data warehouses require significant resources to build, whereas data marts are curated and smaller scale
+##### Data mesh
+- Data mesh: data products are managed and built by individual domain teams that often resemble data marts
+- Responsibilities often shift from the data engineer to the business user, but technical components of data engineering pipelines may still require the role of a data engineer
+##### Business intelligence
+- Business intelligence: the process of analyzing data and deriving actionable decision-making insight
+- Solutions are often derived from data warehouses, marts, products or some combination therein
+##### Data science
+- Data science: a broader topic that covers applications such as advanced analytics, artificial intelligence (AI), and machine learning
+- Snowpark enables data scientists to build, train, and deploy machine learning models
+##### Data augmentation using large language models
+- Generative AI (GenAI) and the subset of large language models (LLMs) are able to generate text, programming code, and images
+- Third-party functionality from Snowpark can be accessed by calling the relevant API
+- Snowflake Cortex features such LLM functionality
+
+### Summary
+- Snowflake is a cloud data platform for data storage, processing, application development, and analytics that offers solutions such as data lakes, data warehouses, data marts, business intelligence, data science, and data augmentation
+- Data engineers design, build, optimize, monitor, and maintain data pipelines that extract raw data from source systems and transform it for downstream consumption
+- A technical knowledge of source systems and Snowflake commands are needed to extract data and ingest it in Snowflake
+- Data transformations are performed via SQL or a programming language supported in Snowpark
+- Data modeling is needed to build the transformed data to the required specifications for downstream consumers
+- A data pipeline is a set of data processing steps that move data from source to destination while performing transformations as needed
+- Underlying components such as security, data governance, data modeling, orchestration, software engineering, and DataOps support building data pipelines
+- Common data engineering patterns include data lakes, data warehouses, data marts, business intelligence, data science, and data augmentation
